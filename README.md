@@ -68,6 +68,8 @@ classDiagram
    * raylib로 게임 창 생성 및 기본 구조 작성
    * `InitGame()`, `UpdateGame()`, `DrawGame()` 구조로 게임 루프 구성
   // 예시: main 함수 일부
+
+'''
 #include "raylib.h"
 // #include "GameManager.h" // 게임 관리 클래스 헤더 포함 필요
 
@@ -92,7 +94,7 @@ int main()
     CloseWindow(); // 창 닫기
     return 0;
 }
-
+'''
 2. **주인공 이동 구현**
 
    * Player 클래스 활용

@@ -10,7 +10,7 @@
 ## 📌 프로젝트 개요
 - **팀명**: 9팀  
 - **팀원**: 전재민(팀장), 김준용, 김무진  
-- **개발 기간**: 2025년 MM월 DD일 ~ 2025년 MM월 DD일 (총 X일)  
+- **개발 기간**: 2025년 05월 14일 ~ 2025년 05월 18일 (총 5일)  
 - **주요 기술**: C++, raylib 라이브러리, 게임 루프, 충돌 감지, 객체 관리 등  
 
 ## 👥 팀원 역할 분담
@@ -68,33 +68,33 @@ classDiagram
    * raylib로 게임 창 생성 및 기본 구조 작성
    * `InitGame()`, `UpdateGame()`, `DrawGame()` 구조로 게임 루프 구성
   // 예시: main 함수 일부
-
-'''
-#include "raylib.h"
-// #include "GameManager.h" // 게임 관리 클래스 헤더 포함 필요
-
-int main()
-{
+```
+int main() {
     const int screenWidth = 800;
     const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "Raylib Avoid Game");
-    // SetTargetFPS(60); // 선택 사항: 프레임 속도 고정
 
-    // GameManager game; // 게임 관리 객체 생성
-    // game.InitGame(screenWidth, screenHeight); // 게임 초기화
+    GameManager game;
+    game.InitGame(screenWidth, screenHeight); // 게임 초기화
 
-    // while (!WindowShouldClose()) // 게임 루프
-    // {
-    //     game.HandleInput(); // 입력 처리
-    //     game.UpdateGame(GetFrameTime()); // 게임 상태 업데이트 ( deltaTime 전달)
-    //     game.DrawGame(); // 화면 그리기
-    // }
+    while (!WindowShouldClose()) {
+        game.HandleInput();                // 입력 처리
+        game.UpdateGame(GetFrameTime());   // 게임 로직 업데이트
+        game.DrawGame();                   // 게임 화면 그리기
+    }
 
     CloseWindow(); // 창 닫기
     return 0;
 }
-'''
+```
+InitGame()에서 주인공과 장애물 초기화
+
+UpdateGame()에서 게임 상태 업데이트 및 충돌 체크
+
+DrawGame()에서 화면에 모든 객체 그리기
+
+
 2. **주인공 이동 구현**
 
    * Player 클래스 활용

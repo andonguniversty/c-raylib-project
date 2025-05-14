@@ -1,8 +1,6 @@
-물론입니다! 아래는 위의 내용을 `README.md` 형식에 맞게 정리한 Markdown 파일입니다. 이 파일을 그대로 복사해 `.md` 확장자로 저장하시면 GitHub 등에서 바로 문서로 활용하실 수 있습니다.
 
-> 👉 프로젝트 문서 자동 변환과 생성은 [gptonline.ai](https://gptonline.ai/ko/)에서 더 편리하게 이용해보세요!
 
----
+
 
 ````markdown
 # 🎮 Raylib 장애물 피하기 게임

@@ -99,28 +99,120 @@ DrawGame()에서 화면에 모든 객체 그리기
 
    * Player 클래스 활용
    * 화살표 또는 WASD 키로 이동 제어, 화면 경계 내 제한
+  ```
+     void Player::Update(float deltaTime, int screenWidth, int screenHeight) {
+    if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) position.x += speed * deltaTime;
+    if (IsKeyDown(KEY_LEFT)  || IsKeyDown(KEY_A)) position.x -= speed * deltaTime;
+    if (IsKeyDown(KEY_DOWN)  || IsKeyDown(KEY_S)) position.y += speed * deltaTime;
+    if (IsKeyDown(KEY_UP)    || IsKeyDown(KEY_W)) position.y -= speed * deltaTime;
+
+    // 화면 경계 체크
+    if (position.x < 0) position.x = 0;
+    if (position.x > screenWidth - size.x) position.x = screenWidth - size.x;
+    if (position.y < 0) position.y = 0;
+    if (position.y > screenHeight - size.y) position.y = screenHeight - size.y;
+}
+
+void Player::Draw() {
+    DrawRectangleV(position, size, color);
+}
+```
+    키 입력에 따른 이동
+    
+    화면 밖으로 나가지 않도록 경계 제한 적용
+
+
 
 3. **장애물 생성 및 이동**
 
    * Obstacle 클래스 활용
    * 자동 생성 및 이동, 화면 밖으로 나가면 제거
+ 
+  ```
+void Obstacle::Update(float deltaTime) {
+    position.x -= speed * deltaTime; // 왼쪽으로 이동
+}
+
+void Obstacle::Draw() {
+    DrawCircleV(position, radius, color);
+}
+
+bool Obstacle::IsOffScreen() {
+    return position.x + radius < 0; // 화면 왼쪽 밖으로 나갔는지
+}
+```
 
 4. **충돌 감지 및 게임 오버**
 
    * `CheckCollisionCircleRec()` 함수 사용
    * 충돌 시 게임 상태를 GAME\_OVER로 전환
+  
+```
+void GameManager::CheckCollisions() {
+    Rectangle playerRect = { player.position.x, player.position.y, player.size.x, player.size.y };
+
+    for (const auto& obstacle : obstacles) {
+        if (CheckCollisionCircleRec(obstacle.position, obstacle.radius, playerRect)) {
+            gameState = GAME_OVER;
+            break;
+        }
+    }
+}
+```
 
 5. **점수 시스템**
 
    * 장애물이 화면 밖으로 나가면 점수 10점 증가
-
+```
+obstacles.erase(std::remove_if(obstacles.begin(), obstacles.end(),
+    [&](const Obstacle& o){
+        if (o.position.x + o.radius < 0) {
+            score += 10;
+            return true;
+        }
+        return false;
+    }), obstacles.end());
+```
 6. **속도/크기 변화**
 
    * 점수나 시간 경과에 따라 장애물 속도/크기 점진적 증가
 
+
+```
+void GameManager::UpdateGame(float deltaTime) {
+    currentObstacleSpeed += speedIncreaseRate * deltaTime;
+    currentObstacleSize += sizeIncreaseRate * deltaTime;
+
+    Obstacle newObstacle;
+    newObstacle.speed = currentObstacleSpeed;
+    newObstacle.radius = GetRandomValue(minSize, maxSize); // 또는 currentObstacleSize 사용
+    // ...
+}
+```
+
 7. **게임 오버 UI**
 
    * 게임 종료 시 “Game Over”, 최종 점수 출력
+  
+```
+void GameManager::DrawGame() {
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+
+    if (gameState == GAME_PLAYING) {
+        player.Draw();
+        for (auto& o : obstacles) o.Draw();
+        DrawText(TextFormat("Score: %i", score), 10, 10, 20, BLACK);
+    } else if (gameState == GAME_OVER) {
+        const char* gameOverText = "Game Over!";
+        DrawText(gameOverText, GetScreenWidth()/2 - MeasureText(gameOverText, 40)/2, GetScreenHeight()/2 - 20, 40, RED);
+        DrawText(TextFormat("Final Score: %i", score), GetScreenWidth()/2 - MeasureText(TextFormat("Final Score: %i", score), 20)/2, GetScreenHeight()/2 + 20, 20, BLACK);
+    }
+
+    EndDrawing();
+}
+
+```
 
 ## 📅 개발 일정
 
@@ -188,11 +280,10 @@ DrawGame()에서 화면에 모든 객체 그리기
 
 ---
 
-🎮 개발자 문서 자동 변환, 팀 문서 통합은 [gptonline.ai/ko](https://gptonline.ai/ko/)에서 더 쉽게 관리하세요!
+
 
 ```
 
 --- 
 
-Markdown 문서를 기반으로 GitHub 또는 Notion 등에 바로 업로드하실 수 있습니다. 소감이나 실행화면 이미지 등은 프로젝트 마무리 후 자유롭게 채워주시면 좋습니다. 추가 수정이나 포맷 조정이 필요하시면 언제든지 도와드릴게요!
 ```

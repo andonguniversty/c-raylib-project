@@ -67,6 +67,31 @@ classDiagram
 
    * raylib로 게임 창 생성 및 기본 구조 작성
    * `InitGame()`, `UpdateGame()`, `DrawGame()` 구조로 게임 루프 구성
+  // 예시: main 함수 일부
+#include "raylib.h"
+// #include "GameManager.h" // 게임 관리 클래스 헤더 포함 필요
+
+int main()
+{
+    const int screenWidth = 800;
+    const int screenHeight = 450;
+
+    InitWindow(screenWidth, screenHeight, "Raylib Avoid Game");
+    // SetTargetFPS(60); // 선택 사항: 프레임 속도 고정
+
+    // GameManager game; // 게임 관리 객체 생성
+    // game.InitGame(screenWidth, screenHeight); // 게임 초기화
+
+    // while (!WindowShouldClose()) // 게임 루프
+    // {
+    //     game.HandleInput(); // 입력 처리
+    //     game.UpdateGame(GetFrameTime()); // 게임 상태 업데이트 ( deltaTime 전달)
+    //     game.DrawGame(); // 화면 그리기
+    // }
+
+    CloseWindow(); // 창 닫기
+    return 0;
+}
 
 2. **주인공 이동 구현**
 
@@ -99,10 +124,10 @@ classDiagram
 
 | 일차  | 주요 작업                                 | 참여            |
 | --- | ------------------------------------- | ------------- |
-| 1일차 | raylib 환경 설정, 기본 게임 루프, Player 클래스 설계 | 전재민, 김무진, 김준용 |
-| 2일차 | 주인공 이동 로직, 장애물 클래스 기본 구현              | 김무진, 전재민      |
-| 3일차 | 장애물 생성/제거, 충돌 감지, 점수 시스템 구현           | 김무진, 전재민      |
-| 4일차 | 속도/크기 변화, 게임 오버 화면, 통합 테스트 및 문서       | 김무진, 김준용, 전재민 |
+| 1일차 | 주제 선정, 일정 관리, 기획 및 설계     | 김무진,김준용,전재민
+| 2일차 | 
+| 3일차 | 
+| 4일차 |
 
 ## ✅ 성과 및 개선점
 
@@ -120,7 +145,28 @@ classDiagram
 
 ## 📸 실행 화면
 
-(스크린샷 첨부 예정)
+1. **게임 초기 화면** (게임 시작화면 없이 바로 게임구현)
+
+   
+
+2. **주인공 이동 구현** 
+
+ 
+
+3. **장애물 생성 및 이동**(장애물 화면)
+
+
+
+4. **점수 시스템** (score 점수 화면)
+
+
+
+5. **속도/크기 변화**(점수 변화에 따른 장애물 크기 변화)
+
+
+
+6. **게임 오버 UI**(장애물에 닿았을시 게임종료)
+
 
 ---
 

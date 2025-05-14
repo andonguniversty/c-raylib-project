@@ -44,37 +44,6 @@
 10. **재시작/종료:** 게임 오버 시 Space 키로 재시작, 모든 상태에서 Esc 키로 종료.
 
 
-## 🛠️ 핵심 기능 요약
-
-### 1. 게임 초기화 및 메인 루프 구성
-
-Raylib 창을 생성하고 게임의 기본 상태를 초기화합니다. `InitGame()`, `UpdateGame()`, `DrawGame()` 함수를 게임 루프 내에서 호출하여 게임 로직 업데이트 및 화면 그리기를 수행합니다.
-
-```cpp
-// 예시: main 함수 일부
-int main() {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
-
-    InitWindow(screenWidth, screenHeight, "Raylib Avoid Game");
-    SetTargetFPS(60); // 프레임 속도 설정
-
-    GameManager game;
-    game.InitGame(screenWidth, screenHeight); // 게임 초기화
-
-    while (!WindowShouldClose() && !game.ShouldClose()) { // Esc 키 종료 조건 추가
-        game.HandleInput();          // 입력 처리
-        game.UpdateGame(GetFrameTime()); // 게임 로직 업데이트
-        game.DrawGame();             // 게임 화면 그리기
-    }
-
-    CloseWindow(); // 창 닫기
-    return 0;
-}
-GameManager::InitGame()에서 플레이어, 장애물/아이템 목록, 점수, 시간, 스테이지 등을 초기 상태로 설정합니다 (생명 3개 포함).
-GameManager::HandleInput()에서 키보드 입력을 처리합니다 (플레이어 이동, 재시작, 종료).
-GameManager::UpdateGame()에서 게임 상태(플레이 중, 게임 오버)에 따라 플레이어/장애물/아이템 위치 업데이트, 충돌 체크, 점수/시간/스테이지 업데이트, 게임 오버 상태 전환 등을 처리합니다.
-GameManager::DrawGame()에서 게임 상태에 따라 배경, 플레이어, 장애물/아이템, 점수/생명/시간/스테이지 정보, 게임 오버 메시지 등을 화면에 그립니다.
 
 
 

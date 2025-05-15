@@ -342,6 +342,7 @@ else if (gameState == GAME_OVER) {
 
 📸 기능별 실행 화면
 시작화면 입니다.
+
 Space 키를 누르면 게임을 시작하고,
 Esc 키를 누르면 프로그램을 종료합니다.
 
